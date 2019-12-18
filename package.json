@@ -11,10 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "github-oauth": "^0.2.2",
-    "http": "0.0.0"
+    "http": "0.0.0",
+    "request": "^2.88.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/lichtenberg/MSET-Tools-Helper"
-  },
+  }
 }
