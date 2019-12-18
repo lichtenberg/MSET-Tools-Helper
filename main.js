@@ -1,7 +1,7 @@
 var githubOAuth = require('github-oauth')({
   githubClient: process.env['GITHUB_CLIENT'],
   githubSecret: process.env['GITHUB_SECRET'],
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://localhost:80',
   loginURI: '/login',
   callbackURI: '/callback',
   scope: 'user' // optional, default scope is set to user
@@ -10,7 +10,7 @@ var githubOAuth = require('github-oauth')({
 require('http').createServer(function(req, res) {
   if (req.url.match(/login/)) return githubOAuth.login(req, res)
   if (req.url.match(/callback/)) return githubOAuth.callback(req, res)
-}).listen(8080)
+}).listen(80)
 
 githubOAuth.on('error', function(err) {
   console.error('there was a login error', err)
