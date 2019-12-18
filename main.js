@@ -1,16 +1,22 @@
+console.log("## MSET-Helper server starting")
+
+var myport = process.env.PORT || 3649
+
 var githubOAuth = require('github-oauth')({
   githubClient: process.env['GITHUB_CLIENT'],
   githubSecret: process.env['GITHUB_SECRET'],
-  baseURL: 'http://localhost:3649',
+  baseURL: `http://localhost:${myport}`,
   loginURI: '/login',
   callbackURI: '/callback',
   scope: 'user' // optional, default scope is set to user
 })
 
+console.log(`## Will listen on port ${myport}`)
+
 require('http').createServer(function(req, res) {
   if (req.url.match(/login/)) return githubOAuth.login(req, res)
   if (req.url.match(/callback/)) return githubOAuth.callback(req, res)
-}).listen(3649)
+}).listen(myport)
 
 githubOAuth.on('error', function(err) {
   console.error('there was a login error', err)
