@@ -1,6 +1,11 @@
+//
+// MSET-Tools Helper Application for github oauth
+//
+
 console.log("## MSET-Helper server starting")
 
 var myport = process.env.PORT || 3649
+var myredirect = process.env.SUCCESS_REDIRECT
 
 var githubOAuth = require('github-oauth')({
   githubClient: process.env['GITHUB_CLIENT'],
@@ -25,10 +30,7 @@ githubOAuth.on('error', function(err) {
 githubOAuth.on('token', function(token, serverResponse) {
     console.log('here is your shiny new github oauth token', token)
     serverResponse.statusCode = 302
-    var u = "https://lichtenberg.github.io/MSET-Tools/mset-tools.html?access_token=" + token.access_token
+    var u = myredirect + "?access_token=" + token.access_token
     serverResponse.setHeader('location',u)
     serverResponse.end()
-//    serverResponse.end(JSON.stringify(token))
 })
-
-// now go to http://localhost/login
